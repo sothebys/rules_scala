@@ -1,0 +1,15 @@
+syntax = "proto2";
+
+package test.proto;
+
+import "test/proto/scalapb.proto";
+
+option (scalapb.options) = {
+  import: "stamina.Persistable"
+  preamble: "sealed trait Events extends Persistable"
+  single_file: true
+};
+
+message MegaEvent {
+  option (scalapb.message).extends = "Events";
+}

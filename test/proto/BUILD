@@ -152,6 +152,23 @@ scala_test(
 )
 
 proto_library(
+    name = "external_jvm_dep_proto",
+    srcs = ["external_jvm_dep.proto"],
+    deps = [
+	":scalapb_proto",
+        "@com_google_protobuf//:descriptor_proto",
+    ],
+)
+
+scala_proto_library(
+    name = "external_jvm_dep_proto_scala",
+    visibility = ["//visibility:public"],
+    deps = [
+    	":external_jvm_dep_proto",
+    ],
+)
+
+proto_library(
     name = "standalone_proto",
     srcs = ["standalone.proto"],
 )
@@ -226,3 +243,18 @@ scala_test(
     unused_dependency_checker_mode = "off",
     deps = [":pack_protos_lib"],
 )
+
+
+proto_library(
+    name = "scalapb_proto",
+    srcs = ["scalapb.proto"],
+    visibility = ["//visibility:public"],
+    deps = ["@com_google_protobuf//:descriptor_proto"],
+)
+
+scala_proto_library(
+    name = "scalapb",
+    deps = [":scalapb_proto"],
+    visibility = ["//visibility:public"],
+)
+
